@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     boolean twoPlayers = true;
     final String TAG = "MainActivityTag";
     String teamChoice;
+    Intent startIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +46,18 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), GameActivity.class);
+                startIntent = new Intent(getApplicationContext(), GameActivity.class);
                 if (twoPlayers) {
                     startIntent.putExtra( "com.jonesclass.huangstasinos.ticTacSmack.TWO_PLAYERS",true);
-                    selectTeamDialog(" Player 1");
+                    selectTeamDialog2P();
                     startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_ONE", teamChoice);
-                    selectTeamDialog(" Player 2");
-                    startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_TWO", teamChoice);
+                    selectTeamDialog();
                     Log.d(TAG, "onClick: Sent 2-Player as true, and both Player's team choices");
                 } else {
                     startIntent.putExtra( "com.jonesclass.huangstasinos.ticTacSmack.TWO_PLAYERS",false);
-                    selectTeamDialog("");
-                    startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_ONE", teamChoice);
+                    selectTeamDialog();
                     Log.d(TAG,"onClick: Sent false and choice of team");
                 }
-                startActivity(startIntent);
             }
         });
 
@@ -67,10 +65,44 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void selectTeamDialog(String player) {
+    public void selectTeamDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
         final String[] TEAM_CHOICES = {"BioTeam","Knights","Outlanders","Techno"};
-        dialogBuilder.setTitle("Choose Your Team" + player + ":");
+        dialogBuilder.setTitle("Choose Your Team:");
+        dialogBuilder.setSingleChoiceItems(TEAM_CHOICES, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                teamChoice = TEAM_CHOICES[which];
+                if(which == 0) {
+                    Toast.makeText(MainActivity.this,"Green Team!", Toast.LENGTH_SHORT).show();
+                } else if(which == 1) {
+                    Toast.makeText(MainActivity.this,"That's Sharp!", Toast.LENGTH_SHORT).show();
+                } else if(which == 2) {
+                    Toast.makeText(MainActivity.this,"Arr, Matey!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this,"Beep Boop", Toast.LENGTH_SHORT).show();
+                }
+                Log.d(TAG, "We got this far...");
+                startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_TWO", teamChoice);
+                startActivity(startIntent);
+                dialog.dismiss();
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this,"No Team Selected.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public void selectTeamDialog2P() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final String[] TEAM_CHOICES = {"BioTeam","Knights","Outlanders","Techno"};
+        dialogBuilder.setTitle("Choose Your Team:");
         dialogBuilder.setSingleChoiceItems(TEAM_CHOICES, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
