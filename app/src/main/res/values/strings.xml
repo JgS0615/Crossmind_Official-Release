@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Crossmind</string>
+    <string name="tile00">Tile at position 0 0</string>
+    <string name="tile01">Tile at position 0 1</string>
+    <string name="tile02">Tile at position 0 2</string>
+    <string name="tile03">Tile at position 0 3</string>
+    <string name="tile04">Tile at position 0 4</string>
+    <string name="tile10">Tile at position 1 0</string>
+    <string name="tile11">Tile at position 1 1</string>
+    <string name="tile12">Tile at position 1 2</string>
+    <string name="tile13">Tile at position 1 3</string>
+    <string name="tile14">Tile at position 1 4</string>
+    <string name="tile20">Tile at position 2 0</string>
+    <string name="tile21">Tile at position 2 1</string>
+    <string name="tile22">Tile at position 2 2</string>
+    <string name="tile23">Tile at position 2 3</string>
+    <string name="tile24">Tile at position 2 4</string>
+    <string name="tile30">Tile at position 3 0</string>
+    <string name="tile31">Tile at position 3 1</string>
+    <string name="tile32">Tile at position 3 2</string>
+    <string name="tile33">Tile at position 3 3</string>
+    <string name="tile34">Tile at position 3 4</string>
+    <string name="tile40">Tile at position 4 0</string>
+    <string name="tile41">Tile at position 4 1</string>
+    <string name="tile42">Tile at position 4 2</string>
+    <string name="tile43">Tile at position 4 3</string>
+    <string name="tile44">Tile at position 4 4</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="welcome">WELCOME</string>
+    <string name="to">TO</string>
+    <string name="crossmind">CROSSMIND</string>
+    <string name="begin">Begin</string>
+    <string name="onePlayer">1 Player</string>
+    <string name="twoPlayers">2 Players</string>
+</resources>
