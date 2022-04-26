@@ -53,12 +53,13 @@ public class MainActivity extends AppCompatActivity {
                     selectTeamDialog(" Player 2");
                     startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_TWO", teamChoice);
                     Log.d(TAG, "onClick: Sent 2-Player as true, and both Player's team choices");
+                    startActivity(startIntent);
                 } else {
                     startIntent.putExtra( "com.jonesclass.huangstasinos.ticTacSmack.TWO_PLAYERS",false);
                     selectTeamDialog("");
                     startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_ONE", teamChoice);
                     Log.d(TAG,"onClick: Sent false and choice of team");
-
+                    startActivity(startIntent);
                 }
             }
         });
