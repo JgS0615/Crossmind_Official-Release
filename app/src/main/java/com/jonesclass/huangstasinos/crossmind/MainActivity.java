@@ -15,11 +15,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
     //Animations
     Animation topanim;
 
     //Variables
+
+    final String[] TEAM_CHOICES = {"BioTeam","Knights","Outlanders","Techno"};
+    public Random rNumber = new Random();
     Button startButton;
     RadioButton onePlayerButton, twoPlayerButton;
     AlertDialog.Builder dialogBuilder;
@@ -27,14 +32,18 @@ public class MainActivity extends AppCompatActivity {
     final String TAG = "MainActivityTag";
     String teamChoice;
     Intent startIntent;
+    String randomChoice = TEAM_CHOICES[rNumber.nextInt(TEAM_CHOICES.length)];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         //Animations
         topanim = AnimationUtils.loadAnimation(this,R.anim.topanim);
+
         topanim.setDuration(1500);
 
         //Set Animations for Menu
@@ -68,13 +77,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startIntent = new Intent(getApplicationContext(), GameActivity.class);
                 if (twoPlayers) {
-                    startIntent.putExtra( "com.jonesclass.huangstasinos.ticTacSmack.TWO_PLAYERS",true);
+                    startIntent.putExtra( "com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS",true);
                     selectTeamDialog2P();
-                    startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_ONE", teamChoice);
+                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", randomChoice);
+                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
+
                     selectTeamDialog();
                     Log.d(TAG, "onClick: Sent 2-Player as true, and both Player's team choices");
                 } else {
-                    startIntent.putExtra( "com.jonesclass.huangstasinos.ticTacSmack.TWO_PLAYERS",false);
+                    startIntent.putExtra( "com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS",false);
                     selectTeamDialog();
                     Log.d(TAG,"onClick: Sent false and choice of team");
                 }
@@ -87,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectTeamDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
-        final String[] TEAM_CHOICES = {"BioTeam","Knights","Outlanders","Techno"};
         dialogBuilder.setTitle("Choose Your Team:");
         dialogBuilder.setSingleChoiceItems(TEAM_CHOICES, -1, new DialogInterface.OnClickListener() {
             @Override
@@ -103,7 +113,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Beep Boop!", Toast.LENGTH_SHORT).show();
                 }
                 Log.d(TAG, "We got this far...");
-                startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_TWO", teamChoice);
+
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", randomChoice);
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", teamChoice);
+
                 startActivity(startIntent);
                 dialog.dismiss();
             }
@@ -138,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 startButton.setVisibility(View.VISIBLE);
                 dialog.dismiss();
+                System.out.println(teamChoice);
+                System.out.println(TEAM_CHOICES[rNumber.nextInt(TEAM_CHOICES.length)]);
             }
         });
 

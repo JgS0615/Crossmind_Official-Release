@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +20,7 @@ public class GameActivity extends AppCompatActivity {
 
     public Random rNumber = new Random();
 
-    public String[] teams = new String[4];
+    public ArrayList<String> teams = new ArrayList<String>();
     public int turnCounter = 0;
     public int points;
     public boolean twoPlayers;
@@ -36,15 +39,25 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //teams = ["BioTeam","Knights","Outlanders","Techno"];
-        
+        teams.add("BioTeam");
+        teams.add("Knights");
+        teams.add("Outlanders");
+        teams.add("Techno");
+
+        //labels
+        TextView player1Label = findViewById(R.id.player1Label);
+        TextView player2Label = findViewById(R.id.player2Label);
+
         Log.d(TAG, "onCreate: Created");
         Intent newIntent = getIntent();
 
-        twoPlayers = newIntent.getBooleanExtra("com.jonesclass.stasinos.ticTacSmack.TWO_PLAYERS", true);
-        teamChoice = newIntent.getStringExtra("com.jonesclass.stasinos.ticTacSmack.TEAM_CHOICE_PLAYER_ONE");
-        teamChoice2 = newIntent.getStringExtra("com.jonesclass.stasinos.ticTacSmack.TEAM_CHOICE_PLAYER_TWO");
-        
+        twoPlayers = newIntent.getBooleanExtra("com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS", true);
+        teamChoice = newIntent.getStringExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO");
+        teamChoice2 = newIntent.getStringExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO");
+
+        System.out.println(teamChoice);
+        System.out.println(teamChoice2);
+
         switch(teamChoice2) { // "BioTeam","Knights","Outlanders","Techno" //P1 (singlePlayer, and P2 for 2 Players)
             case "BioTeam":
                 color = "green";
@@ -79,9 +92,7 @@ public class GameActivity extends AppCompatActivity {
                     color2 = null; // this should NOT happen
             }
         } else {
-            List<String> teamList = Arrays.asList(teams);
-            Collections.shuffle(teamList);
-            teamList.toArray(teams);
+            teams.get(rNumber.nextInt(teams.size()));
             //teamChoice = teams.get(0);
             switch(teamChoice) {
                 case "BioTeam":
@@ -123,15 +134,15 @@ public class GameActivity extends AppCompatActivity {
                             int photoResID = getResources().getIdentifier(nameOfFile,"id",getPackageName());
                             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
                             turnCounter ++;
-                            //player2Label.setVisibility(View.VISIBLE);
-                            //player1Label.setVisibility(View.INVISIBLE);
+                            player2Label.setVisibility(View.VISIBLE);
+                            player1Label.setVisibility(View.INVISIBLE);
                         } else if(turnCounter % 2 == 1) {
                             //TODO: player2 turn
                             String nameOfFile2 = "piece" + color2;
                             int photoResID2 = getResources().getIdentifier(nameOfFile2,"id",getPackageName());
                             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
-                            //player2Label.setVisibility(View.INVISIBLE);
-                            //player1Label.setVisibility(View.VISIBLE);
+                            player2Label.setVisibility(View.INVISIBLE);
+                            player1Label.setVisibility(View.VISIBLE);
                         }
                     }
                 });
