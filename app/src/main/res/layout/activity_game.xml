@@ -21,12 +21,17 @@
 
     <ToggleButton
         android:id="@+id/toggleButton_placePiece"
-        android:layout_width="75dp"
-        android:layout_height="0dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="40dp"
         android:layout_weight="1"
         android:checked="false"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="624dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TableLayout
         android:id="@+id/tableLayout"

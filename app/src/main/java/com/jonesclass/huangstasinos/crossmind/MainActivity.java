@@ -9,6 +9,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     String teamChoice;
     Intent startIntent;
     String randomChoice = TEAM_CHOICES[rNumber.nextInt(TEAM_CHOICES.length)];
+    public MediaPlayer mp = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Media player setup
+        mp = MediaPlayer.create(this,R.raw.faithfulmission);
+        mp.start();
+        mp.setVolume(80,80);
 
 
         splashScreen.setKeepOnScreenCondition(() -> false);
@@ -139,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
-
+                mp.stop();
                 startActivity(startIntent);
                 dialog.dismiss();
             }

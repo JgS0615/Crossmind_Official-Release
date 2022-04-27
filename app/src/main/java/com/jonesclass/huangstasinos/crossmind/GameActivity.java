@@ -2,9 +2,11 @@ package com.jonesclass.huangstasinos.crossmind;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -28,15 +30,20 @@ public class GameActivity extends AppCompatActivity {
     public String teamChoice2;
     private String color, color2;
     private ImageButton[][] imageButtons = new ImageButton[5][5];
+    private boolean sound = true;
 
     
 
     final String TAG = "GameActivityTag";
+    public MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        mp = MediaPlayer.create(this,R.raw.volatilereaction);
+        mp.start();
+        mp.setVolume(80,80);
 
         //adds team
         TEAMS.add("BioTeam");
@@ -44,9 +51,24 @@ public class GameActivity extends AppCompatActivity {
         TEAMS.add("Outlanders");
         TEAMS.add("Techno");
 
-        //labels
+        //interactives
         TextView player1Label = findViewById(R.id.player1Label);
         TextView player2Label = findViewById(R.id.player2Label);
+        ImageButton soundButton = findViewById(R.id.imageButton_volume);
+        soundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sound = !sound;
+                if(sound){
+                    mp.start();
+                    soundButton.setImageDrawable(getDrawable(R.drawable.soundofficon));
+                } else {
+                    mp.pause();
+                    soundButton.setImageDrawable(getDrawable(R.drawable.soundonicon));
+                }
+            }
+        });
+
 
 
         Log.d(TAG, "onCreate: Created");
