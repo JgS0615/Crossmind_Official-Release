@@ -103,11 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 if (twoPlayers) {
                     startIntent.putExtra( "com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS",true);
                     selectTeamDialog2P();
-                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", teamChoice);
 
-                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
-
-                    selectTeamDialog();
                     Log.d(TAG, "onClick: Sent 2-Player as true, and both Player's team choices");
                 } else {
                     startIntent.putExtra( "com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS",false);
@@ -138,8 +134,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Beep Boop!", Toast.LENGTH_SHORT).show();
                 }
                 Log.d(TAG, "We got this far...");
+                if (!twoPlayers) {
+                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", randomChoice);
+                }
 
-                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", randomChoice);
                 startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
 
                 startActivity(startIntent);
@@ -175,7 +173,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Beep Boop", Toast.LENGTH_SHORT).show();
                 }
                 startButton.setVisibility(View.VISIBLE);
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", teamChoice);
                 dialog.dismiss();
+                selectTeamDialog();
                 System.out.println(teamChoice);
                 System.out.println(TEAM_CHOICES[rNumber.nextInt(TEAM_CHOICES.length)]);
             }
