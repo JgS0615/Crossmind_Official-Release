@@ -139,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.d(TAG, "We got this far...");
 
-                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", teamChoice);
-                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", randomChoice);
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", randomChoice);
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
 
                 startActivity(startIntent);
                 dialog.dismiss();

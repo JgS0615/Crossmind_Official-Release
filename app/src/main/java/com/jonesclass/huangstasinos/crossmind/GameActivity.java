@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -17,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
+
+    //Animations
+    Animation topanim;
 
     public Random rNumber = new Random();
 
@@ -39,6 +44,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //adds team
         teams.add("BioTeam");
         teams.add("Knights");
         teams.add("Outlanders");
@@ -47,6 +53,10 @@ public class GameActivity extends AppCompatActivity {
         //labels
         TextView player1Label = findViewById(R.id.player1Label);
         TextView player2Label = findViewById(R.id.player2Label);
+
+        //animations
+        topanim = AnimationUtils.loadAnimation(this,R.anim.topanim);
+        topanim.setDuration(1500);
 
         Log.d(TAG, "onCreate: Created");
         Intent newIntent = getIntent();
@@ -74,6 +84,7 @@ public class GameActivity extends AppCompatActivity {
             default:
                 color = null; // this should NOT happen
         }
+
         if (twoPlayers) {
             switch(teamChoice) {
                 case "BioTeam":
@@ -129,29 +140,34 @@ public class GameActivity extends AppCompatActivity {
                 imageButtons[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (turnCounter % 2 == 0) {
-                            // TODO: player1 turn
-                            String nameOfFile = "piece" + color;
-                            Log.d(TAG,color);
-                            int photoResID = getResources().getIdentifier(nameOfFile,"drawable",getPackageName());
-                            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
-                            turnCounter ++;
-                            player2Label.setVisibility(View.VISIBLE);
-                            player1Label.setVisibility(View.INVISIBLE);
-                        } else if(turnCounter % 2 == 1) {
-                            //TODO: player2 turn
-                            String nameOfFile2 = "piece" + color2;
-                            int photoResID2 = getResources().getIdentifier(nameOfFile2,"drawable",getPackageName());
-                            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
-                            turnCounter ++;
-                            player2Label.setVisibility(View.INVISIBLE);
-                            player1Label.setVisibility(View.VISIBLE);
-                        }
+                        turn(turnCounter,player1Label,player2Label,finalI,finalJ);
+                        turnCounter++;
                     }
                 });
             }
         }
+
+
         
+    }
+    public void turn(int turnCounter,TextView player1Label, TextView player2Label,int finalI,int finalJ){
+        if (turnCounter % 2 == 0) {
+            // TODO: player1 turn
+            String nameOfFile = "piece" + color;
+            Log.d(TAG,color);
+            int photoResID = getResources().getIdentifier(nameOfFile,"drawable",getPackageName());
+            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
+            turnCounter ++;
+            player2Label.setAnimation(topanim);
+        } else if(turnCounter % 2 == 1) {
+            //TODO: player2 turn
+            String nameOfFile2 = "piece" + color2;
+            int photoResID2 = getResources().getIdentifier(nameOfFile2,"drawable",getPackageName());
+            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
+            turnCounter ++;
+            player1Label.setAnimation(topanim);
+
+        }
     }
 
 }
