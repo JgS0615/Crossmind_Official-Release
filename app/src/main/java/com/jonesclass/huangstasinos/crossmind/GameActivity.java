@@ -18,7 +18,6 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
-
     public Random rNumber = new Random();
     Board board;
     private final ArrayList<String> TEAMS = new ArrayList<>();
@@ -31,8 +30,6 @@ public class GameActivity extends AppCompatActivity {
     private String color, color2;
     private ImageButton[][] imageButtons = new ImageButton[5][5];
     private boolean sound = true;
-
-    
 
     final String TAG = "GameActivityTag";
     public MediaPlayer mp;
@@ -173,10 +170,17 @@ public class GameActivity extends AppCompatActivity {
                 });
             }
         }
-
-
-        
     }
+
+    /**
+     * Basic turn function.
+     * @param turnCounter decides whose turn it is
+     * @param player1Label exactly as stated
+     * @param player2Label see above
+     * @param finalI the column
+     * @param finalJ the row
+     * @param pieceCounter it decides how many pieces are placed
+     */
     public void turn(int turnCounter,TextView player1Label, TextView player2Label,int finalI,int finalJ,int pieceCounter){
         if ((turnCounter % 2 == 0) && (pieceCounter <= PIECE_LIMIT)) {
             // TODO: player1 turn
