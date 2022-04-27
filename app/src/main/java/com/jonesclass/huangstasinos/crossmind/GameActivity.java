@@ -4,35 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
 
     public Random rNumber = new Random();
-
-    public ArrayList<String> teams = new ArrayList<String>();
-    public int turnCounter = 0;
-    public int points;
+    private ArrayList<String> teams = new ArrayList<String>();
+    private int turnCounter = 0;
+    private int pieceCounter = 1;
+    private final int PIECE_LIMIT = 10;
+    private int points;
     public boolean twoPlayers;
     public String teamChoice;
     public String teamChoice2;
-    public String color, color2;
-    public ImageButton[][] imageButtons = new ImageButton[5][5];
-    public boolean[][] selected = new boolean[5][5];
-    public int[][] values = new int[5][5];
+    private String color, color2;
+    private ImageButton[][] imageButtons = new ImageButton[5][5];
+    private boolean[][] selected = new boolean[5][5];
+    private int[][] values = new int[5][5];
     
 
     final String TAG = "GameActivityTag";
@@ -135,8 +128,11 @@ public class GameActivity extends AppCompatActivity {
                 imageButtons[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        turn(turnCounter,player1Label,player2Label,finalI,finalJ);
+                        turn(turnCounter,player1Label,player2Label,finalI,finalJ,pieceCounter);
                         turnCounter++;
+                        pieceCounter++;
+
+
                     }
                 });
             }
@@ -145,26 +141,25 @@ public class GameActivity extends AppCompatActivity {
 
         
     }
-    public void turn(int turnCounter,TextView player1Label, TextView player2Label,int finalI,int finalJ){
-        if (turnCounter % 2 == 0) {
+    public void turn(int turnCounter,TextView player1Label, TextView player2Label,int finalI,int finalJ,int pieceCounter){
+        if ((turnCounter % 2 == 0) && (pieceCounter <= PIECE_LIMIT)) {
             // TODO: player1 turn
             String nameOfFile = "piece" + color;
             Log.d(TAG,color);
             int photoResID = getResources().getIdentifier(nameOfFile,"drawable",getPackageName());
             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
-            turnCounter ++;
             player2Label.setVisibility(View.VISIBLE);
             player1Label.setVisibility(View.GONE);
 
-        } else if(turnCounter % 2 == 1) {
+        } else if((turnCounter % 2 == 1) && (pieceCounter <= PIECE_LIMIT)) {
             //TODO: player2 turn
             String nameOfFile2 = "piece" + color2;
             int photoResID2 = getResources().getIdentifier(nameOfFile2,"drawable",getPackageName());
             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
-            turnCounter ++;
             player1Label.setVisibility(View.VISIBLE);
             player2Label.setVisibility(View.GONE);
         }
     }
+
 
 }
