@@ -52,18 +52,18 @@ public class GameActivity extends AppCompatActivity {
         Intent newIntent = getIntent();
 
         twoPlayers = newIntent.getBooleanExtra("com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS", true);
-        teamChoice = newIntent.getStringExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO");
+        teamChoice = newIntent.getStringExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE");
         teamChoice2 = newIntent.getStringExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO");
 
-        System.out.println(teamChoice);
-        System.out.println(teamChoice2);
+        Log.d(TAG, "Team 1: " + teamChoice);
+        Log.d(TAG,"Team 2: " + teamChoice2);
 
         switch(teamChoice2) { // "BioTeam","Knights","Outlanders","Techno" //P1 (singlePlayer, and P2 for 2 Players)
             case "BioTeam":
                 color = "green";
                 break;
             case "Knights":
-                color = "";
+                color = "black";
                 break;
             case "Outlanders":
                 color = "red";
@@ -116,6 +116,7 @@ public class GameActivity extends AppCompatActivity {
             Board board = new Board(teamChoice, teamChoice2);
         } else {
             Board board = new Board(teamChoice2);
+
         }
         
         for (int i = 0; i < imageButtons.length; i ++) {
@@ -131,7 +132,8 @@ public class GameActivity extends AppCompatActivity {
                         if (turnCounter % 2 == 0) {
                             // TODO: player1 turn
                             String nameOfFile = "piece" + color;
-                            int photoResID = getResources().getIdentifier(nameOfFile,"id",getPackageName());
+                            Log.d(TAG,color);
+                            int photoResID = getResources().getIdentifier(nameOfFile,"drawable",getPackageName());
                             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
                             turnCounter ++;
                             player2Label.setVisibility(View.VISIBLE);
@@ -139,8 +141,9 @@ public class GameActivity extends AppCompatActivity {
                         } else if(turnCounter % 2 == 1) {
                             //TODO: player2 turn
                             String nameOfFile2 = "piece" + color2;
-                            int photoResID2 = getResources().getIdentifier(nameOfFile2,"id",getPackageName());
+                            int photoResID2 = getResources().getIdentifier(nameOfFile2,"drawable",getPackageName());
                             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
+                            turnCounter ++;
                             player2Label.setVisibility(View.INVISIBLE);
                             player1Label.setVisibility(View.VISIBLE);
                         }

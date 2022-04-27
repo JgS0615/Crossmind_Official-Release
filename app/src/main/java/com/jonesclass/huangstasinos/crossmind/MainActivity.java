@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 if (twoPlayers) {
                     startIntent.putExtra( "com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS",true);
                     selectTeamDialog2P();
-                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", randomChoice);
+                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", teamChoice);
+
                     startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
 
                     selectTeamDialog();
@@ -114,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.d(TAG, "We got this far...");
 
-                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", randomChoice);
-                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", teamChoice);
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", randomChoice);
 
                 startActivity(startIntent);
                 dialog.dismiss();
