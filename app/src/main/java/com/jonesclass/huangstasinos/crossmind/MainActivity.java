@@ -123,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * gives player choice of their team. then goes to the game activity
+     */
     public void selectTeamDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle("Choose Your Team:");
@@ -144,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
                 if (!twoPlayers) {
                     startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", randomChoice);
                 }
-
                 startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
                 mp.stop();
                 startActivity(startIntent);
@@ -162,6 +163,11 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+
+    /**
+     * the teamChoosingDialog that is shown when there are two players
+     * it leads to the single player one.
+     */
     public void selectTeamDialog2P() {
         dialogBuilder = new AlertDialog.Builder(this);
         final String[] TEAM_CHOICES = {"BioTeam","Knights","Outlanders","Techno"};
