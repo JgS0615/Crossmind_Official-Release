@@ -1,6 +1,7 @@
 package com.jonesclass.huangstasinos.crossmind;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -125,6 +126,20 @@ public class GameActivity extends AppCompatActivity {
                 imageButtons[i][j] = ((ImageButton) findViewById(resID));
                 int finalI = i;
                 int finalJ = j;
+                // TYPES: Forest, Mountain, City, Plains
+                switch (board.tiles[i][j].type){
+                    case ("Forest"):
+                        imageButtons[i][j].setBackgroundColor(Color.GREEN);
+                        break;
+                    case ("Mountain"):
+                        imageButtons[i][j].setBackgroundColor(Color.DKGRAY);
+                        break;
+                    case ("City"):
+                        imageButtons[i][j].setBackgroundColor(Color.YELLOW);
+                        break;
+                    default:
+                        imageButtons[i][j].setBackgroundColor(Color.CYAN);
+                }
                 imageButtons[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -150,16 +165,18 @@ public class GameActivity extends AppCompatActivity {
             board.tiles[finalI][finalJ].givePiece(new Piece("pawn",teamChoice, 1,1));
             player2Label.setVisibility(View.VISIBLE);
             player1Label.setVisibility(View.GONE);
+            Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
 
         } else if((turnCounter % 2 == 1) && (pieceCounter <= PIECE_LIMIT)) {
             //TODO: player2 turn
             String nameOfFile2 = "piece" + color2;
+            Log.d(TAG,color2);
             int photoResID2 = getResources().getIdentifier(nameOfFile2,"drawable",getPackageName());
             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
             board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice2, 1,1));
             player1Label.setVisibility(View.VISIBLE);
             player2Label.setVisibility(View.GONE);
-            Log.d(TAG, "turn: Board Tile given piece");
+            Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
         }
     }
 
