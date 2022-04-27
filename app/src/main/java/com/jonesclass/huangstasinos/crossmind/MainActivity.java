@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Animations
         topanim = AnimationUtils.loadAnimation(this,R.anim.topanim);
-        topanim.setDuration(1500);
+        topanim.setDuration(4000);
 
         //Set Animations for Menu
 
