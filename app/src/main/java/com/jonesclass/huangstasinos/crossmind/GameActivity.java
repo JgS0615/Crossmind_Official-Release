@@ -20,8 +20,6 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
-    //Animations
-    Animation topanim;
 
     public Random rNumber = new Random();
 
@@ -54,9 +52,6 @@ public class GameActivity extends AppCompatActivity {
         TextView player1Label = findViewById(R.id.player1Label);
         TextView player2Label = findViewById(R.id.player2Label);
 
-        //animations
-        topanim = AnimationUtils.loadAnimation(this,R.anim.topanim);
-        topanim.setDuration(1500);
 
         Log.d(TAG, "onCreate: Created");
         Intent newIntent = getIntent();
@@ -158,15 +153,17 @@ public class GameActivity extends AppCompatActivity {
             int photoResID = getResources().getIdentifier(nameOfFile,"drawable",getPackageName());
             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
             turnCounter ++;
-            player2Label.setAnimation(topanim);
+            player2Label.setVisibility(View.VISIBLE);
+            player1Label.setVisibility(View.GONE);
+
         } else if(turnCounter % 2 == 1) {
             //TODO: player2 turn
             String nameOfFile2 = "piece" + color2;
             int photoResID2 = getResources().getIdentifier(nameOfFile2,"drawable",getPackageName());
             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
             turnCounter ++;
-            player1Label.setAnimation(topanim);
-
+            player1Label.setVisibility(View.VISIBLE);
+            player2Label.setVisibility(View.GONE);
         }
     }
 
