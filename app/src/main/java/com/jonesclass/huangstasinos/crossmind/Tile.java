@@ -68,4 +68,22 @@ public class Tile {
         color = "black";
     }
 
+    /**
+     * Returns a String that has the basic values of the Tile
+     * @return the basic description of the object
+     */
+    public String toString() {
+        String finalString = "";
+        if (hasPiece) {
+            finalString += "Has a Piece, ";
+        } else {
+            finalString += "Does not have a Piece, ";
+        }
+
+        finalString += "is a " + type;
+        finalString += ", at position (" + locationX + ", " + locationY + "), ";
+
+        return finalString;
+    }
+
 }

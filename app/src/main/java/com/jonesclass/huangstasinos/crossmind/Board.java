@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Board {
-    Piece piece;
+    Piece piece = new Piece();
     Tile[][] tiles = new Tile[5][5];
     Random rNumber = new Random();
 
@@ -13,7 +13,11 @@ public class Board {
      * @param teamChosen the team that the player chooses
      */
     Board(String teamChosen) {
-        piece = new Piece("pawn", teamChosen, 1, 10);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                tiles[i][j] = new Tile(i,j,tileTypeChooser(rNumber.nextInt(5)));
+            }
+        }
     }
 
     /**
@@ -22,8 +26,11 @@ public class Board {
      * @param teamChosen2 second player's team
      */
     Board(String teamChosen1, String teamChosen2) {
-        piece = new Piece("pawn", teamChosen1, 1, 10);
-
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                tiles[i][j] = new Tile(i,j,tileTypeChooser(rNumber.nextInt(5)));
+            }
+        }
     }
 
     /**

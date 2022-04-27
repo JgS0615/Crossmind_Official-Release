@@ -8,24 +8,26 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
 
     public Random rNumber = new Random();
-    private ArrayList<String> teams = new ArrayList<String>();
+    Board board;
+    private final ArrayList<String> TEAMS = new ArrayList<>();
     private int turnCounter = 0;
     private int pieceCounter = 1;
     private final int PIECE_LIMIT = 10;
-    private int points;
     public boolean twoPlayers;
     public String teamChoice;
     public String teamChoice2;
     private String color, color2;
     private ImageButton[][] imageButtons = new ImageButton[5][5];
-    private boolean[][] selected = new boolean[5][5];
-    private int[][] values = new int[5][5];
+
     
 
     final String TAG = "GameActivityTag";
@@ -36,10 +38,10 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         //adds team
-        teams.add("BioTeam");
-        teams.add("Knights");
-        teams.add("Outlanders");
-        teams.add("Techno");
+        TEAMS.add("BioTeam");
+        TEAMS.add("Knights");
+        TEAMS.add("Outlanders");
+        TEAMS.add("Techno");
 
         //labels
         TextView player1Label = findViewById(R.id.player1Label);
@@ -91,8 +93,8 @@ public class GameActivity extends AppCompatActivity {
                     color2 = null; // this should NOT happen
             }
         } else {
-            teams.get(rNumber.nextInt(teams.size()));
-            //teamChoice = teams.get(0);
+            Collections.shuffle(TEAMS);
+            teamChoice = TEAMS.get(0);
             switch(teamChoice) {
                 case "BioTeam":
                     color2 = "green";
@@ -112,12 +114,10 @@ public class GameActivity extends AppCompatActivity {
         }
 
         if (twoPlayers) {
-            Board board = new Board(teamChoice, teamChoice2);
+            board = new Board(teamChoice, teamChoice2);
         } else {
-            Board board = new Board(teamChoice2);
-
+            board = new Board(teamChoice2);
         }
-        
         for (int i = 0; i < imageButtons.length; i ++) {
             for (int j = 0; j < imageButtons[i].length; j ++) {
                 String buttonID = "tile_" + (i + 1) + "." + j;
@@ -128,11 +128,10 @@ public class GameActivity extends AppCompatActivity {
                 imageButtons[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         turn(turnCounter,player1Label,player2Label,finalI,finalJ,pieceCounter);
                         turnCounter++;
                         pieceCounter++;
-
-
                     }
                 });
             }
@@ -148,6 +147,7 @@ public class GameActivity extends AppCompatActivity {
             Log.d(TAG,color);
             int photoResID = getResources().getIdentifier(nameOfFile,"drawable",getPackageName());
             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
+            board.tiles[finalI][finalJ].givePiece(new Piece("pawn",teamChoice, 1,1));
             player2Label.setVisibility(View.VISIBLE);
             player1Label.setVisibility(View.GONE);
 
@@ -156,8 +156,10 @@ public class GameActivity extends AppCompatActivity {
             String nameOfFile2 = "piece" + color2;
             int photoResID2 = getResources().getIdentifier(nameOfFile2,"drawable",getPackageName());
             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
+            board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice2, 1,1));
             player1Label.setVisibility(View.VISIBLE);
             player2Label.setVisibility(View.GONE);
+            Log.d(TAG, "turn: Board Tile given piece");
         }
     }
 
