@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +36,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        teams = ["BioTeam","Knights","Outlanders","Techno"];
+        //teams = ["BioTeam","Knights","Outlanders","Techno"];
         
         Log.d(TAG, "onCreate: Created");
         Intent newIntent = getIntent();
@@ -83,7 +82,7 @@ public class GameActivity extends AppCompatActivity {
             List<String> teamList = Arrays.asList(teams);
             Collections.shuffle(teamList);
             teamList.toArray(teams);
-            teamChoice = teams.get(0);
+            //teamChoice = teams.get(0);
             switch(teamChoice) {
                 case "BioTeam":
                     color2 = "green";
@@ -124,15 +123,15 @@ public class GameActivity extends AppCompatActivity {
                             int photoResID = getResources().getIdentifier(nameOfFile,"id",getPackageName());
                             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
                             turnCounter ++;
-                            player2Label.setVisibility(View.VISIBLE);
-                            player1Label.setVisibility(View.INVISIBLE);
+                            //player2Label.setVisibility(View.VISIBLE);
+                            //player1Label.setVisibility(View.INVISIBLE);
                         } else if(turnCounter % 2 == 1) {
                             //TODO: player2 turn
                             String nameOfFile2 = "piece" + color2;
                             int photoResID2 = getResources().getIdentifier(nameOfFile2,"id",getPackageName());
                             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
-                            player2Label.setVisibility(View.INVISIBLE);
-                            player1Label.setVisibility(View.VISIBLE);
+                            //player2Label.setVisibility(View.INVISIBLE);
+                            //player1Label.setVisibility(View.VISIBLE);
                         }
                     }
                 });
