@@ -3,6 +3,7 @@ package com.jonesclass.huangstasinos.crossmind;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.Arrays;
@@ -48,16 +49,16 @@ public class GameActivity extends AppCompatActivity {
         switch(teamChoice2) { // "BioTeam","Knights","Outlanders","Techno" //P1 (singlePlayer, and P2 for 2 Players)
             case "BioTeam":
                 color = "green";
-                continue;
+                break;
             case "Knights":
                 color = "";
-                continue;
+                break;
             case "Outlanders":
                 color = "red";
-                continue;
+                break;
             case "Techno":
                 color = "blue";
-                continue;
+                break;
             default:
                 color = null; // this should NOT happen
         }
@@ -65,16 +66,16 @@ public class GameActivity extends AppCompatActivity {
             switch(teamChoice) {
                 case "BioTeam":
                     color2 = "green";
-                    continue;
+                    break;
                 case "Knights":
                     color2 = "black";
-                    continue;
+                    break;
                 case "Outlanders":
                     color2 = "red";
-                    continue;
+                    break;
                 case "Techno":
                     color2 = "blue";
-                    continue;
+                    break;
                 default:
                     color2 = null; // this should NOT happen
             }
@@ -86,16 +87,16 @@ public class GameActivity extends AppCompatActivity {
             switch(teamChoice) {
                 case "BioTeam":
                     color2 = "green";
-                    continue;
+                    break;
                 case "Knights":
                     color2 = "black";
-                    continue;
+                    break;
                 case "Outlanders":
                     color2 = "red";
-                    continue;
+                    break;
                 case "Techno":
                     color2 = "blue";
-                    continue;
+                    break;
                 default:
                     color2 = null; // this should NOT happen
             }
@@ -108,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
         }
         
         for (int i = 0; i < imageButtons.length; i ++) {
-            for (int j = 0; j < imageButtons[].length; j ++) {
+            for (int j = 0; j < imageButtons[i].length; j ++) {
                 String buttonID = "tile_" + (i + 1) + "." + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
                 imageButtons[i][j] = ((ImageButton) findViewById(resID));
@@ -120,16 +121,16 @@ public class GameActivity extends AppCompatActivity {
                         if (turnCounter % 2 == 0) {
                             // TODO: player1 turn
                             String nameOfFile = "piece" + color;
-                            int photoResID = getResources().getDrawable();
-                            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(res.getIdentifier(nameOfFile,"drawable",context.getPackageName())));
+                            int photoResID = getResources().getIdentifier(nameOfFile,"id",getPackageName());
+                            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
                             turnCounter ++;
                             player2Label.setVisibility(View.VISIBLE);
                             player1Label.setVisibility(View.INVISIBLE);
                         } else if(turnCounter % 2 == 1) {
                             //TODO: player2 turn
-                            String nameOfFile = "piece" + color2;
-                            int photoResID = getResources().getDrawable();
-                            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(res.getIdentifier(nameOfFile,"drawable",context.getPackageName())));
+                            String nameOfFile2 = "piece" + color2;
+                            int photoResID2 = getResources().getIdentifier(nameOfFile2,"id",getPackageName());
+                            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
                             player2Label.setVisibility(View.INVISIBLE);
                             player1Label.setVisibility(View.VISIBLE);
                         }
