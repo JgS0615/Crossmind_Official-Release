@@ -8,12 +8,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Random;
 
+public class MainActivity extends AppCompatActivity {
+    //Animations
+    Animation topanim;
+
+    //Variables
+
+    final String[] TEAM_CHOICES = {"BioTeam","Knights","Outlanders","Techno"};
+    public Random rNumber = new Random();
     Button startButton;
     RadioButton onePlayerButton, twoPlayerButton;
     AlertDialog.Builder dialogBuilder;
@@ -21,11 +32,29 @@ public class MainActivity extends AppCompatActivity {
     final String TAG = "MainActivityTag";
     String teamChoice;
     Intent startIntent;
+    String randomChoice = TEAM_CHOICES[rNumber.nextInt(TEAM_CHOICES.length)];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        //Animations
+        topanim = AnimationUtils.loadAnimation(this,R.anim.topanim);
+
+        topanim.setDuration(1500);
+
+        //Set Animations for Menu
+
+        TextView textView_welcome = findViewById(R.id.textView_welcome);
+        TextView textView_to = findViewById(R.id.textView_to);
+        TextView textView_crossmind = findViewById(R.id.textView_crossmind);
+
+        textView_welcome.setAnimation(topanim);
+        textView_to.setAnimation(topanim);
+        textView_crossmind.setAnimation(topanim);
 
         onePlayerButton = findViewById(R.id.radioButton_onePlayer);
         onePlayerButton.setOnClickListener(new View.OnClickListener() {
@@ -48,13 +77,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startIntent = new Intent(getApplicationContext(), GameActivity.class);
                 if (twoPlayers) {
-                    startIntent.putExtra( "com.jonesclass.huangstasinos.ticTacSmack.TWO_PLAYERS",true);
+                    startIntent.putExtra( "com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS",true);
                     selectTeamDialog2P();
-                    startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_ONE", teamChoice);
+                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", teamChoice);
+
+                    startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
+
                     selectTeamDialog();
                     Log.d(TAG, "onClick: Sent 2-Player as true, and both Player's team choices");
                 } else {
-                    startIntent.putExtra( "com.jonesclass.huangstasinos.ticTacSmack.TWO_PLAYERS",false);
+                    startIntent.putExtra( "com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS",false);
                     selectTeamDialog();
                     Log.d(TAG,"onClick: Sent false and choice of team");
                 }
@@ -67,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectTeamDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
-        final String[] TEAM_CHOICES = {"BioTeam","Knights","Outlanders","Techno"};
         dialogBuilder.setTitle("Choose Your Team:");
         dialogBuilder.setSingleChoiceItems(TEAM_CHOICES, -1, new DialogInterface.OnClickListener() {
             @Override
@@ -80,10 +111,13 @@ public class MainActivity extends AppCompatActivity {
                 } else if(which == 2) {
                     Toast.makeText(MainActivity.this,"Arr, Matey!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this,"Beep Boop", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Beep Boop!", Toast.LENGTH_SHORT).show();
                 }
                 Log.d(TAG, "We got this far...");
-                startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_TWO", teamChoice);
+
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice);
+                startIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", randomChoice);
+
                 startActivity(startIntent);
                 dialog.dismiss();
             }
@@ -118,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 startButton.setVisibility(View.VISIBLE);
                 dialog.dismiss();
+                System.out.println(teamChoice);
+                System.out.println(TEAM_CHOICES[rNumber.nextInt(TEAM_CHOICES.length)]);
             }
         });
 
