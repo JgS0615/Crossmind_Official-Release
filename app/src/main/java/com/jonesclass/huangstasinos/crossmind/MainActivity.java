@@ -8,12 +8,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    //Animations
+    Animation topanim;
 
+    //Variables
     Button startButton;
     RadioButton onePlayerButton, twoPlayerButton;
     AlertDialog.Builder dialogBuilder;
@@ -26,6 +32,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Animations
+        topanim = AnimationUtils.loadAnimation(this,R.anim.topanim);
+        topanim.setDuration(1500);
+
+        //Set Animations for Menu
+
+        TextView textView_welcome = findViewById(R.id.textView_welcome);
+        TextView textView_to = findViewById(R.id.textView_to);
+        TextView textView_crossmind = findViewById(R.id.textView_crossmind);
+
+        textView_welcome.setAnimation(topanim);
+        textView_to.setAnimation(topanim);
+        textView_crossmind.setAnimation(topanim);
 
         onePlayerButton = findViewById(R.id.radioButton_onePlayer);
         onePlayerButton.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if(which == 2) {
                     Toast.makeText(MainActivity.this,"Arr, Matey!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this,"Beep Boop", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Beep Boop!", Toast.LENGTH_SHORT).show();
                 }
                 Log.d(TAG, "We got this far...");
                 startIntent.putExtra("com.jonesclass.huangstasinos.ticTacSmack.TEAM_CHOICE_PLAYER_TWO", teamChoice);
