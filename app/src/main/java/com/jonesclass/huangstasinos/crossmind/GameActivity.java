@@ -123,15 +123,15 @@ public class GameActivity extends AppCompatActivity {
                             int photoResID = getResources().getDrawable();
                             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(res.getIdentifier(nameOfFile,"drawable",context.getPackageName())));
                             turnCounter ++;
-                            player1Label.setVisibility(View.VISIBLE);
-                            player2Label.setVisibility(View.INVISIBLE);
+                            player2Label.setVisibility(View.VISIBLE);
+                            player1Label.setVisibility(View.INVISIBLE);
                         } else if(turnCounter % 2 == 1) {
                             //TODO: player2 turn
                             String nameOfFile = "piece" + color2;
                             int photoResID = getResources().getDrawable();
                             imageButtons[finalI][finalJ].setImageDrawable(getDrawable(res.getIdentifier(nameOfFile,"drawable",context.getPackageName())));
-                            player1Label.setVisibility(View.INVISIBLE);
-                            player2Label.setVisibility(View.VISIBLE);
+                            player2Label.setVisibility(View.INVISIBLE);
+                            player1Label.setVisibility(View.VISIBLE);
                         }
                     }
                 });
