@@ -58,7 +58,6 @@ public class CombatActivity extends AppCompatActivity {
         progressBar2 = findViewById(R.id.progressBar_2);
         player1 = findViewById(R.id.imageView_player1);
         player2 = findViewById(R.id.imageView_player2);
-        fight = findViewById(R.id.button_Fight);
 
 
 
@@ -81,13 +80,7 @@ public class CombatActivity extends AppCompatActivity {
             slideUp.start();
         });
 
-        fight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rpsDialog();
-                rpsDialog2();
-            }
-        });
+
 
         switch (teamChoice2) { // "BioTeam","Knights","Outlanders","Techno" //P1 (singlePlayer, and P2 for 2 Players)
             case "BioTeam":
@@ -199,9 +192,7 @@ public class CombatActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void win(String player1Choice,String player2Choice){
 
-    }
 
 }
 
