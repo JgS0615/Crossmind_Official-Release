@@ -35,7 +35,7 @@ public class Tile {
         locationY = y;
         piece = piece1;
         this.type = type;
-        hasPiece = true;
+        hasPiece = false;
     }
 
     /**

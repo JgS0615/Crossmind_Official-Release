@@ -180,9 +180,7 @@ public class GameActivity extends AppCompatActivity {
                 imageButtons[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         turn(player1Label,player2Label,finalI,finalJ);
-
 
                     }
                 });
@@ -197,14 +195,12 @@ public class GameActivity extends AppCompatActivity {
             if ((turnCounter % 2 == 0) && (pieceCounter <= PIECE_LIMIT)) {
                 // TODO: player1 turn
                 String nameOfFile = "piece" + color;
-                Log.d(TAG, color);
-                Log.d(TAG, "place = " + place);
-
                 int photoResID = getResources().getIdentifier(nameOfFile, "drawable", getPackageName());
                 if ((place == true) && pieceClickable[finalI][finalJ]) {
                     this.pieceCounter++;
                     this.turnCounter++;
                     imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
+                    board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice, 1, 1));
                     pieceClickable[finalI][finalJ] = false;
                     player2Label.setVisibility(View.VISIBLE);
                     player1Label.setVisibility(View.GONE);
@@ -212,26 +208,19 @@ public class GameActivity extends AppCompatActivity {
                         placePiece.setChecked(false);
                         placePiece.setVisibility(View.GONE);
                         place = false;
-                        board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice, 1, 1));
                     }
-
                 }
-                board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice, 1, 1));
 
-                Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
 
             } else if ((turnCounter % 2 == 1) && (pieceCounter <= PIECE_LIMIT)) {
                 //TODO: player2 turn
                 String nameOfFile2 = "piece" + color2;
-                Log.d(TAG, color2);
-                Log.d(TAG, "place = " + place);
-
-
                 int photoResID2 = getResources().getIdentifier(nameOfFile2, "drawable", getPackageName());
                 if ((place == true) && pieceClickable[finalI][finalJ]) {
                     this.pieceCounter++;
                     this.turnCounter++;
                     imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
+                    board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice2, 1, 1));
                     pieceClickable[finalI][finalJ] = false;
                     player1Label.setVisibility(View.VISIBLE);
                     player2Label.setVisibility(View.GONE);
@@ -239,21 +228,11 @@ public class GameActivity extends AppCompatActivity {
                         placePiece.setChecked(false);
                         placePiece.setVisibility(View.GONE);
                         place = false;
-                        board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice2, 1, 1));
                     }
                 }
-
-                board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice2, 1, 1));
-                Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
-            } else if ((place == false) && board.tiles[finalI][finalJ].hasPiece) {
-                select = true;
-                selectedPieceX = finalI;
-                selectedPieceY = finalJ;
             }
-        } else {
-
         }
+        Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
     }
-
 
 }
