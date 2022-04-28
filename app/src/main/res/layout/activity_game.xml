@@ -24,7 +24,7 @@
         android:id="@+id/toggleButton_placePiece"
         android:layout_width="70dp"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="40dp"
         android:layout_weight="1"
@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.89"
         tools:ignore="TextContrastCheck" />
 
     <TableLayout
@@ -410,19 +410,19 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:contentDescription="place toggle text"
+        android:contentDescription=""
         android:gravity="center"
-        android:text="Place Toggle"
+        android:text="Toggle Place"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/toggleButton_placePiece"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:layout_constraintVertical_bias="0.526" />
+        app:layout_constraintVertical_bias="0.536" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
