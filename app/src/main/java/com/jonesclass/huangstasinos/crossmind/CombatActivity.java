@@ -34,8 +34,8 @@ public class CombatActivity extends AppCompatActivity {
     ProgressBar progressBar2;
     ImageView player1;
     ImageView player2;
-    String player1Choice;
-    String player2Choice;
+    String player1Choice = "";
+    String player2Choice = "";
     Button fight;
     AlertDialog.Builder dialogBuilder;
 
@@ -132,6 +132,9 @@ public class CombatActivity extends AppCompatActivity {
             player2.setImageDrawable(getDrawable(photoResID2));
 
         }
+        Log.d(TAG,player1Choice);
+
+        Log.d(TAG,player2Choice);
     }
     public void rpsDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
@@ -149,6 +152,7 @@ public class CombatActivity extends AppCompatActivity {
                 } else {
                     player1Choice = "";
                 }
+                Log.d(TAG, "Player1Choice " + player1Choice);
                 dialog.dismiss();
             }
         });
@@ -161,6 +165,7 @@ public class CombatActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
+
     }
 
     public void rpsDialog2() {
@@ -179,6 +184,8 @@ public class CombatActivity extends AppCompatActivity {
                 } else {
                     player2Choice = "";
                 }
+                Log.d(TAG, "Player2Choice " + player2Choice);
+                dialog.dismiss();
             }
         });
 
@@ -190,6 +197,10 @@ public class CombatActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
+    }
+
+    public void win(String player1Choice,String player2Choice){
+
     }
 
 }
