@@ -9,12 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 
@@ -38,6 +36,9 @@ public class GameActivity extends AppCompatActivity {
     public boolean select = false;
     public int selectedPieceX,selectedPieceY;
     ToggleButton placePiece;
+    TextView toggleLabel;
+    Button fightButton;
+
     
 
     final String TAG = "GameActivityTag";
@@ -60,6 +61,7 @@ public class GameActivity extends AppCompatActivity {
         //interactives
         TextView player1Label = findViewById(R.id.player1Label);
         TextView player2Label = findViewById(R.id.player2Label);
+        toggleLabel = findViewById(R.id.textView_toggle);
         ImageButton soundButton = findViewById(R.id.imageButton_volume);
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +77,17 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        fightButton = findViewById(R.id.button_combat);
+        fightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent combatIntent = new Intent(getApplicationContext(),CombatActivity.class);
+                startActivity(combatIntent);
+            }
+        });
+
+
+
         placePiece = findViewById(R.id.toggleButton_placePiece);
         placePiece.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +100,7 @@ public class GameActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Created");
         Intent newIntent = getIntent();
+
 
         twoPlayers = newIntent.getBooleanExtra("com.jonesclass.huangstasinos.crossmind.TWO_PLAYERS", true);
         teamChoice = newIntent.getStringExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE");
@@ -193,7 +207,6 @@ public class GameActivity extends AppCompatActivity {
     public void turn(TextView player1Label, TextView player2Label,int finalI,int finalJ){
         if(!select) {
             if ((turnCounter % 2 == 0) && (pieceCounter <= PIECE_LIMIT)) {
-                // TODO: player1 turn
                 String nameOfFile = "piece" + color;
                 int photoResID = getResources().getIdentifier(nameOfFile, "drawable", getPackageName());
                 if ((place == true) && pieceClickable[finalI][finalJ]) {
@@ -201,19 +214,20 @@ public class GameActivity extends AppCompatActivity {
                     this.turnCounter++;
                     imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
                     board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice, 1, 1));
+                    board.tiles[finalI][finalJ].hasPiece = true;
                     pieceClickable[finalI][finalJ] = false;
                     player2Label.setVisibility(View.VISIBLE);
                     player1Label.setVisibility(View.GONE);
                     if (pieceCounter == PIECE_LIMIT) {
                         placePiece.setChecked(false);
                         placePiece.setVisibility(View.GONE);
+                        toggleLabel.setVisibility(View.GONE);
                         place = false;
                         Log.d(TAG, "turn: Done placing Pieces");
                     }
 
                 }
             } else if ((turnCounter % 2 == 1) && (pieceCounter <= PIECE_LIMIT)) {
-                //TODO: player2 turn
                 String nameOfFile2 = "piece" + color2;
                 int photoResID2 = getResources().getIdentifier(nameOfFile2, "drawable", getPackageName());
                 if ((place == true) && pieceClickable[finalI][finalJ]) {
@@ -221,43 +235,62 @@ public class GameActivity extends AppCompatActivity {
                     this.turnCounter++;
                     imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID2));
                     board.tiles[finalI][finalJ].givePiece(new Piece("pawn", teamChoice2, 1, 1));
+                    board.tiles[finalI][finalJ].hasPiece = true;
                     pieceClickable[finalI][finalJ] = false;
                     player1Label.setVisibility(View.VISIBLE);
                     player2Label.setVisibility(View.GONE);
                     if (pieceCounter == PIECE_LIMIT) {
                         placePiece.setChecked(false);
                         placePiece.setVisibility(View.GONE);
+                        toggleLabel.setVisibility(View.GONE);
                         place = false;
                         Log.d(TAG, "turn: Done placing Pieces");
                     }
                 }
-            } 
-        } else if (board.tiles[finalI][finalJ].hasPiece && !select) {
+            } else if (board.tiles[finalI][finalJ].hasPiece) {
+                String turn = "";
+                switch (turnCounter % 2) {
+                    case 1:
+                        turn = teamChoice2;
+                        break;
+                    default:
+                        turn = teamChoice;
+                }
+                if (board.tiles[finalI][finalJ].piece.affinity.equals(turn)) {
+                    select = true;
+                    selectedPieceX = finalI;
+                    selectedPieceY = finalJ;
+                    Log.d(TAG, "turn: Board Tile selected.");
+                } else {
+                    Toast.makeText(GameActivity.this,"Please choose your own piece to move.", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Chose wrong piece.");
+                }
+            }
+        }  else if (board.tiles[finalI][finalJ].hasPiece) {
+            //TODO: Implement fight function HERE
+            turnCounter ++;
+            select = false;
+        } else if (!board.tiles[finalI][finalJ].hasPiece) {
             String turn = "";
+            String color = "";
             switch (turnCounter % 2) {
                 case 1:
                     turn = teamChoice2;
+                    color = color2;
                     break;
                 default:
                     turn = teamChoice;
+                    color = this.color;
             }
-            if (board.tiles[finalI][finalJ].piece.affinity.equals(turn)) {
-                select = true;
-                selectedPieceX = finalI;
-                selectedPieceY = finalJ;
-                Log.d(TAG, "turn: Board Tile selected.");                
-            } else {
-                Toast.makeText(MainActivity.this,"Please choose your own piece to move.", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Chose wrong piece.");
-            }
-        } else if (board.tiles[finalI][finalJ].hasPiece && select) {
-            //TODO: Implement fight function HERE
-            turnCounter ++;
-        } else if (select && !board.tiles[finalI][finalJ].hasPiece) {
             turnCounter ++;
             board.tiles[finalI][finalJ].givePiece(board.tiles[selectedPieceX][selectedPieceY].piece);
             board.tiles[finalI][finalJ].hasPiece = true;
+            String nameOfFile = "piece" + color;
+            int photoResID = getResources().getIdentifier(nameOfFile, "drawable", getPackageName());
+            imageButtons[finalI][finalJ].setImageDrawable(getDrawable(photoResID));
             board.tiles[selectedPieceX][selectedPieceY].hasPiece = false;
+            imageButtons[selectedPieceX][selectedPieceY].setImageDrawable(getDrawable(R.drawable.blank));
+            select = false;
             Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
         }
         
