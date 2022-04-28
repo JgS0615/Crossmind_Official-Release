@@ -29,6 +29,11 @@
             android:name=".CombatActivity"
             android:exported="false"
             android:theme="@style/Theme.App.Combat"/>
+        <activity android:name=".InstructionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Crossmind"
+            />
+"
 
     </application>
 
