@@ -171,7 +171,7 @@ public class GameActivity extends AppCompatActivity {
         }
         for (int i = 0; i < imageButtons.length; i ++) {
             for (int j = 0; j < imageButtons[i].length; j ++) {
-                pieceClickable[i][j] =true;
+                pieceClickable[i][j] = true;
                 String buttonID = "tile_" + (i + 1) + "." + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
                 imageButtons[i][j] = ((ImageButton) findViewById(resID));
@@ -195,15 +195,12 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         turn(player1Label,player2Label,finalI,finalJ);
-
                     }
                 });
             }
         }
-
-
-        
     }
+
     public void turn(TextView player1Label, TextView player2Label,int finalI,int finalJ){
         if(!select) {
             if ((turnCounter % 2 == 0) && (pieceCounter <= PIECE_LIMIT)) {
@@ -222,6 +219,7 @@ public class GameActivity extends AppCompatActivity {
                         placePiece.setChecked(false);
                         placePiece.setVisibility(View.GONE);
                         toggleLabel.setVisibility(View.GONE);
+                        pieceCounter = 1000;
                         place = false;
                         Log.d(TAG, "turn: Done placing Pieces");
                     }
@@ -243,11 +241,13 @@ public class GameActivity extends AppCompatActivity {
                         placePiece.setChecked(false);
                         placePiece.setVisibility(View.GONE);
                         toggleLabel.setVisibility(View.GONE);
+                        pieceCounter = 1000;
                         place = false;
                         Log.d(TAG, "turn: Done placing Pieces");
                     }
                 }
-            } else if (board.tiles[finalI][finalJ].hasPiece && !place && !pieceClickable[finalI][finalJ]) {
+            } else if (board.tiles[finalI][finalJ].hasPiece) {
+                Log.d(TAG, "turn: MAKES IT HERE");
                 String turn = "";
                 switch (turnCounter % 2) {
                     case 1:
@@ -284,6 +284,15 @@ public class GameActivity extends AppCompatActivity {
                     color = this.color;
             }
             turnCounter ++;
+            switch (turnCounter % 2) {
+                case 1:
+                    player1Label.setVisibility(View.GONE);
+                    player2Label.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    player1Label.setVisibility(View.VISIBLE);
+                    player2Label.setVisibility(View.GONE);
+            }
             board.tiles[finalI][finalJ].givePiece(board.tiles[selectedPieceX][selectedPieceY].piece);
             board.tiles[finalI][finalJ].hasPiece = true;
             String nameOfFile = "piece" + color;
@@ -294,7 +303,6 @@ public class GameActivity extends AppCompatActivity {
             select = false;
             Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
         }
-        
     }
 
 }
