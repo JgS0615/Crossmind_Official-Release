@@ -54,6 +54,7 @@ public class GameActivity extends AppCompatActivity {
         mp = MediaPlayer.create(this,R.raw.volatilereaction);
         mp.start();
         mp.setVolume(80,80);
+        mp.setLooping(true);
 
         //adds team
         TEAMS.add("BioTeam");
