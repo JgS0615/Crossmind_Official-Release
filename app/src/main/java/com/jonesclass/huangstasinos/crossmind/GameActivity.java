@@ -208,11 +208,10 @@ public class GameActivity extends AppCompatActivity {
                         placePiece.setChecked(false);
                         placePiece.setVisibility(View.GONE);
                         place = false;
+                        Log.d(TAG, "turn: Done placing Pieces");
                     }
 
                 }
-
-
             } else if ((turnCounter % 2 == 1) && (pieceCounter <= PIECE_LIMIT)) {
                 //TODO: player2 turn
                 String nameOfFile2 = "piece" + color2;
@@ -229,11 +228,39 @@ public class GameActivity extends AppCompatActivity {
                         placePiece.setChecked(false);
                         placePiece.setVisibility(View.GONE);
                         place = false;
+                        Log.d(TAG, "turn: Done placing Pieces");
                     }
                 }
+            } 
+        } else if (board.tiles[finalI][finalJ].hasPiece && !select) {
+            String turn = "";
+            switch (turnCounter % 2) {
+                case 1:
+                    turn = teamChoice2;
+                    break;
+                default:
+                    turn = teamChoice;
             }
+            if (board.tiles[finalI][finalJ].piece.affinity.equals(turn)) {
+                select = true;
+                selectedPieceX = finalI;
+                selectedPieceY = finalJ;
+                Log.d(TAG, "turn: Board Tile selected.");                
+            } else {
+                Toast.makeText(MainActivity.this,"Please choose your own piece to move.", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Chose wrong piece.");
+            }
+        } else if (board.tiles[finalI][finalJ].hasPiece && select) {
+            //TODO: Implement fight function HERE
+            turnCounter ++;
+        } else if (select && !board.tiles[finalI][finalJ].hasPiece) {
+            turnCounter ++;
+            board.tiles[finalI][finalJ].givePiece(board.tiles[selectedPieceX][selectedPieceY].piece);
+            board.tiles[finalI][finalJ].hasPiece = true;
+            board.tiles[selectedPieceX][selectedPieceY].hasPiece = false;
+            Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
         }
-        Log.d(TAG, "turn: Board Tile given piece " + board.tiles[finalI][finalJ].toString());
+        
     }
 
 }
