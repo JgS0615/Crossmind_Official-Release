@@ -28,9 +28,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     //Animations
     Animation topanim;
-
     //Variables
-
+    Button instructionButton;
     final String[] TEAM_CHOICES = {"BioTeam","Knights","Outlanders","Techno"};
     public Random rNumber = new Random();
     Button startButton;
@@ -61,8 +60,16 @@ public class MainActivity extends AppCompatActivity {
         //Media player setup
         mp = MediaPlayer.create(this,R.raw.faithfulmission);
         mp.start();
-        mp.setVolume(80,80);
+        mp.setVolume(100,100);
+        mp.setLooping(true);
 
+        instructionButton = findViewById(R.id.button_instructions);
+        instructionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(getApplicationContext(), InstructionActivity.class);
+            }
+        });
 
         splashScreen.setKeepOnScreenCondition(() -> false);
         splashScreen.setOnExitAnimationListener(splashScreenView -> {

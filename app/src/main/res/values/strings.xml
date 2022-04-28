@@ -35,4 +35,7 @@
     <string name="twoPlayers">2 Players</string>
     <string name="toolbar_game"> Game tool bar</string>
     <string name="imageButton_volume"> volume setting </string>
+    <string name="instruction">Instructions</string>
+    <string name="actualInstructions">The aim of the game is to win. Beat your opponent in strategy and a quick game of Rock, Paper, Scissors, and take them all out!</string>
+    <string name="back">Back</string>
 </resources>
