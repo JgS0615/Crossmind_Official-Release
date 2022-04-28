@@ -247,7 +247,7 @@ public class GameActivity extends AppCompatActivity {
                         Log.d(TAG, "turn: Done placing Pieces");
                     }
                 }
-            } else if (board.tiles[finalI][finalJ].hasPiece) {
+            } else if (board.tiles[finalI][finalJ].hasPiece && !place && !pieceClickable[finalI][finalJ]) {
                 String turn = "";
                 switch (turnCounter % 2) {
                     case 1:
@@ -258,6 +258,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 if (board.tiles[finalI][finalJ].piece.affinity.equals(turn)) {
                     select = true;
+                    place = false;
                     selectedPieceX = finalI;
                     selectedPieceY = finalJ;
                     Log.d(TAG, "turn: Board Tile selected.");
