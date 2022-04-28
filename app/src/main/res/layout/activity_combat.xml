@@ -1,6 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/button_Fight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="148dp"
+        android:background="@color/teal_200"
+        android:text="Fight"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="40dp"
+        android:max="100"
+        android:progress="100"
+        android:progressTint="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_player1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_hp1" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="72dp"
+        android:max="100"
+        android:progress="100"
+        android:progressTint="@color/design_default_color_error"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_hp2" />
+
+    <ImageView
+        android:id="@+id/imageView_player1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="316dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_player2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_1"
+        app:srcCompat="@drawable/blank" />
+
+    <ImageView
+        android:id="@+id/imageView_player2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="312dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_2"
+        app:srcCompat="@drawable/blank" />
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="167dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="585dp"
+        android:text="Battle Scene"
+        android:textColor="@color/black"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_Fight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_hp1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="7dp"
+        android:text="Player 1 Hp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar_1"
+        app:layout_constraintEnd_toStartOf="@+id/textView_hp2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_hp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="6dp"
+        android:text="Player 2 Hp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

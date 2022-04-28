@@ -48,6 +48,9 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+
+        //Media player
         mp = MediaPlayer.create(this,R.raw.volatilereaction);
         mp.start();
         mp.setVolume(80,80);
@@ -82,6 +85,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent combatIntent = new Intent(getApplicationContext(),CombatActivity.class);
+                combatIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_ONE", teamChoice);
+                combatIntent.putExtra("com.jonesclass.huangstasinos.crossmind.TEAM_CHOICE_PLAYER_TWO", teamChoice2);
                 startActivity(combatIntent);
             }
         });
@@ -269,6 +274,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }  else if (board.tiles[finalI][finalJ].hasPiece) {
             //TODO: Implement fight function HERE
+            fightButton.setVisibility(View.VISIBLE);
             turnCounter ++;
             select = false;
         } else if (!board.tiles[finalI][finalJ].hasPiece) {
