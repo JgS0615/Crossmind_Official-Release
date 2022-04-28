@@ -209,6 +209,7 @@ public class GameActivity extends AppCompatActivity {
                         placePiece.setVisibility(View.GONE);
                         place = false;
                     }
+
                 }
 
 

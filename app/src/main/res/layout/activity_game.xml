@@ -14,6 +14,7 @@
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="40dp"
         android:layout_weight="1"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,17 +22,19 @@
 
     <ToggleButton
         android:id="@+id/toggleButton_placePiece"
-        android:layout_width="50dp"
+        android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="40dp"
         android:layout_weight="1"
         android:checked="false"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="TextContrastCheck" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -404,6 +407,22 @@
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="place toggle text"
+        android:gravity="center"
+        android:text="Place Toggle"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/toggleButton_placePiece"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+        app:layout_constraintVertical_bias="0.526" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
