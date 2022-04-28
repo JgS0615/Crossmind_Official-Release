@@ -3,15 +3,19 @@ package com.jonesclass.huangstasinos.crossmind;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnticipateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-
+import android.widget.Toast;
+import android.content.DialogInterface;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
@@ -20,6 +24,7 @@ import java.time.Instant;
 
 public class CombatActivity extends AppCompatActivity {
 
+    final String[] RPS_CHOICE = {"Rock","Paper","Scissor"};
     final String TAG = "GameActivityTag";
     String teamChoice;
     String teamChoice2;
@@ -29,7 +34,10 @@ public class CombatActivity extends AppCompatActivity {
     ProgressBar progressBar2;
     ImageView player1;
     ImageView player2;
+    String player1Choice;
+    String player2Choice;
     Button fight;
+    AlertDialog.Builder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,8 @@ public class CombatActivity extends AppCompatActivity {
         fight = findViewById(R.id.button_Fight);
 
 
+
+
         splashScreen.setKeepOnScreenCondition(() -> false);
         splashScreen.setOnExitAnimationListener(splashScreenView -> {
             final ObjectAnimator slideUp = ObjectAnimator.ofFloat(
@@ -69,6 +79,14 @@ public class CombatActivity extends AppCompatActivity {
                 }
             });
             slideUp.start();
+        });
+
+        fight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rpsDialog();
+                rpsDialog2();
+            }
         });
 
         switch (teamChoice2) { // "BioTeam","Knights","Outlanders","Techno" //P1 (singlePlayer, and P2 for 2 Players)
@@ -115,4 +133,64 @@ public class CombatActivity extends AppCompatActivity {
 
         }
     }
+    public void rpsDialog() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Choose Your Team:");
+        dialogBuilder.setSingleChoiceItems(RPS_CHOICE, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                teamChoice = RPS_CHOICE[which];
+                if(which == 0) {
+                    player1Choice = RPS_CHOICE[0];
+                } else if(which == 1) {
+                    player1Choice = RPS_CHOICE[1];
+                } else if(which == 2) {
+                    player1Choice = RPS_CHOICE[2];
+                } else {
+                    player1Choice = "";
+                }
+                dialog.dismiss();
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(CombatActivity.this,"No Choice Selected.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public void rpsDialog2() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Choose Your Team:");
+        dialogBuilder.setSingleChoiceItems(RPS_CHOICE, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                teamChoice = RPS_CHOICE[which];
+                if(which == 0) {
+                    player2Choice = RPS_CHOICE[0];
+                } else if(which == 1) {
+                    player2Choice = RPS_CHOICE[1];
+                } else if(which == 2) {
+                    player2Choice = RPS_CHOICE[2];
+                } else {
+                    player2Choice = "";
+                }
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(CombatActivity.this,"No Choice Selected.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+    }
+
 }
+
